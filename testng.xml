@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="API Automation with Rest Assured" verbose="2" >
+    <listeners>
+        <listener class-name="Utils.SuiteListener"/>
+    </listeners>
+    <test name="Validate Http Methods" >
+        <classes>
+            <class name="runner.TestHTTPMethods" />
+            <class name="runner.Tests_GET"/>
+        </classes>
+    </test>
+</suite>
