@@ -3,8 +3,9 @@
 
 <suite name="API Automation with Rest Assured" verbose="2" >
     <listeners>
-        <listener class-name="Utils.SuiteListener"/>
+        <listener class-name="Utils.ExtentReportListener"/>
     </listeners>
+
     <test name="Validate Http Methods" >
         <classes>
             <class name="runner.TestHTTPMethods" />
