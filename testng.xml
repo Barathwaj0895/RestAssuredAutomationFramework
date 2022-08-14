@@ -10,6 +10,7 @@
         <classes>
             <class name="runner.TestHTTPMethods" />
             <class name="runner.Tests_GET"/>
+            <class name="runner.Tests_POST"/>
         </classes>
     </test>
 </suite>

@@ -15,9 +15,9 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import com.relevantcodes.extentreports.LogStatus;
+import org.testng.internal.IResultListener;
 
-public class ExtentReportListener implements ITestListener {
+public class ExtentReportListener implements ITestListener, IResultListener {
         protected static ExtentReports reports;
         protected static ExtentTest test;
 
@@ -54,22 +54,20 @@ public class ExtentReportListener implements ITestListener {
         public void onTestStart(ITestResult result) {
 
             test = reports.createTest(result.getMethod().getMethodName());
-            System.out.println(result.getTestClass().getTestName());
+//            System.out.println(result.getTestClass().getTestName());
             System.out.println(result.getMethod().getMethodName());
         }
 
         public void onTestSuccess(ITestResult result) {
-            test = reports.createTest(result.getName());
             test.log(Status.PASS, MarkupHelper.createLabel(result.getName(), ExtentColor.GREEN));
         }
 
         public void onTestFailure(ITestResult result) {
-            test = reports.createTest(result.getName());
+            test.log(Status.FAIL, result.getThrowable());
             test.log(Status.FAIL, MarkupHelper.createLabel(result.getName(), ExtentColor.RED));
         }
 
         public void onTestSkipped(ITestResult result) {
-            test = reports.createTest(result.getName());
             test.log(Status.SKIP, MarkupHelper.createLabel(result.getName(), ExtentColor.BLACK));
         }
 
@@ -87,6 +85,11 @@ public class ExtentReportListener implements ITestListener {
             htmlReporter.loadXMLConfig(System.getProperty("user.dir")+ "/extent-config.xml");
 
             reports=new ExtentReports();
+            reports.setSystemInfo("Host Name", "Jarvis");
+            reports.setSystemInfo("Environment", "Staging");
+            reports.setSystemInfo("User Name", "Barathwaj Ravisankar");
+            reports.setSystemInfo("Designation", "Senior SDET");
+            reports.setSystemInfo("Organization", "Boeing");
             reports.attachReporter(htmlReporter);
 
             htmlReporter.config().setDocumentTitle("Test Project");
@@ -96,7 +99,6 @@ public class ExtentReportListener implements ITestListener {
         }
 
         public void onFinish(ITestContext context) {
-//            reports.endTest(test);
             reports.flush();
 
         }

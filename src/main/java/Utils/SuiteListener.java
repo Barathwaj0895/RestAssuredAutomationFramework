@@ -8,17 +8,21 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.annotations.ITestAnnotation;
-//import test.java.BaseTest;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * This class has been created by Barathwaj Ravisankar on May 12, 2022
+ * This class has been created by Barathwaj Ravisankar on August 12, 2022
  */
+
+/**
+// This class is Deprecated
+ */
+
+@Deprecated
 public class SuiteListener implements ITestListener, IAnnotationTransformer {
 
     @Override
