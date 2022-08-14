@@ -8,13 +8,16 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
 
 public class TestHTTPMethods {
 
     @Test
-    void testGetMethod() {
+    public void testGetMethod() {
         Response response = get("https://reqres.in/api/users?page=2");
         System.out.println(response.getTime());
         System.out.println(response.getHeader("content-type"));
@@ -28,12 +31,20 @@ public class TestHTTPMethods {
     }
 
     @Test
-    void testGetMethod1() {
+    public void testGetMethod1() {
         given()
                 .get("https://reqres.in/api/users?page=2")
                 .then()
                 .statusCode(200)
                 .body("data.id[0]", equalTo(7));
+    }
+
+    @Test
+    public void testPostMethod() {
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("name", "Barathwaj");
+        map.put("job", "Senior Software Development Engineer in Test");
+        System.out.println(map);
     }
 
 }

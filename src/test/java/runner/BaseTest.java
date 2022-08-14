@@ -17,6 +17,9 @@ import java.lang.reflect.Method;
 /**
  * This class has been created by Barathwaj Ravisankar on August 01, 2022
  */
+
+// This class is deprecated
+@Deprecated
 public class BaseTest {
     public ExtentHtmlReporter htmlReporter;
     public ExtentReports extentReports;
@@ -52,7 +55,14 @@ public class BaseTest {
             String methodName = result.getMethod().getMethodName();
             String logText = "Test Case:" + methodName + "Failed";
             Markup markup = MarkupHelper.createLabel(logText, ExtentColor.RED);
-            logger.log(Status.PASS, markup);
+            logger.log(Status.FAIL, result.getThrowable());
+            logger.log(Status.FAIL, markup);
+        } else if (result.getStatus() == ITestResult.SKIP) {
+            String methodName = result.getMethod().getMethodName();
+            String logText = "Test Case:" + methodName + "Skipped";
+            Markup markup = MarkupHelper.createLabel(logText, ExtentColor.BLACK);
+            logger.log(Status.SKIP, result.getInstanceName());
+            logger.log(Status.SKIP, markup);
         }
     }
 

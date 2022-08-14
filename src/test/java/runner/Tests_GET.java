@@ -14,7 +14,7 @@ public class Tests_GET {
         given()
                 .get("https://reqres.in/api/users?page=2")
                 .then()
-                .statusCode(200);
+                .statusCode(2001);
     }
 
     @Test
@@ -42,5 +42,15 @@ public class Tests_GET {
                 .body("support.url", hasToString("https://reqres.in/#support-heading"))
                 .body("support.text", hasToString("To keep ReqRes free, contributions towards server costs are appreciated!"))
                 .log().all();
+    }
+
+    @Test
+    public void test_Get_Whole_Header_Body_Validation() {
+        given()
+                .header("Content-Type", "application/json")
+                .get("https://reqres.in/api/users?page=2")
+                .then().statusCode(200)
+                .body("data.id[1]", equalTo(8))
+                .body("data.first_name", hasItems("Michael", "Lindsay"));
     }
 }
