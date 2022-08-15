@@ -9,6 +9,7 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.annotations.*;
 
 import java.io.File;
@@ -64,6 +65,12 @@ public class BaseTest {
             logger.log(Status.SKIP, result.getInstanceName());
             logger.log(Status.SKIP, markup);
         }
+    }
+
+    public void reportLogs(String message) {
+        logger.log(Status.INFO, message); // For extendTest HTML Report
+        logger.info("Message" + message);
+        Reporter.log(message);
     }
 
 
