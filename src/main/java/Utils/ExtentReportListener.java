@@ -15,6 +15,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import org.testng.Reporter;
 import org.testng.internal.IResultListener;
 
 public class ExtentReportListener implements ITestListener, IResultListener {
@@ -77,6 +78,12 @@ public class ExtentReportListener implements ITestListener, IResultListener {
             test.log(Status.INFO,MarkupHelper.createLabel(result.getName(),ExtentColor.ORANGE));
         }
 
+        public void reportLogs(String message) {
+            test.log(Status.INFO, message); // For extendTest HTML Report
+            test.info("Message" + message);
+            Reporter.log(message);
+        }
+
         public void onStart(ITestContext context) {
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());//time stamp
             String repName="Test-Report-"+timeStamp+".html";
@@ -90,6 +97,7 @@ public class ExtentReportListener implements ITestListener, IResultListener {
             reports.setSystemInfo("User Name", "Barathwaj Ravisankar");
             reports.setSystemInfo("Designation", "Senior SDET");
             reports.setSystemInfo("Organization", "Boeing");
+            reports.setSystemInfo("Framework Type", "Rest Assured API Automation Framework");
             reports.attachReporter(htmlReporter);
 
             htmlReporter.config().setDocumentTitle("Test Project");

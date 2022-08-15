@@ -1,5 +1,6 @@
 package runner;
 
+import Utils.ExtentReportListener;
 import org.testng.annotations.Test;
 
 
@@ -7,14 +8,15 @@ import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
 
-public class Tests_GET {
+public class Tests_GET extends ExtentReportListener {
 
     @Test
     public void test_Get_StatusCode_Validation() {
         given()
                 .get("https://reqres.in/api/users?page=2")
                 .then()
-                .statusCode(2001);
+                .statusCode(200)
+                .log().all();
     }
 
     @Test
@@ -51,6 +53,7 @@ public class Tests_GET {
                 .get("https://reqres.in/api/users?page=2")
                 .then().statusCode(200)
                 .body("data.id[1]", equalTo(8))
-                .body("data.first_name", hasItems("Michael", "Lindsay"));
+                .body("data.first_name", hasItems("Michael", "Lindsay"))
+                .log().all();
     }
 }
